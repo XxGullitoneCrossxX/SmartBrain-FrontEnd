@@ -8,7 +8,7 @@ import FaceRecognition from './components/FaceRecognition/FaceRecognition.js'
 import Signin from './components/Signin/Signin.js'
 import Register from './components/Register/Register.js'
 import Particles from 'react-particles-js';
-import Clarifai from 'clarifai';
+//import Clarifai from 'clarifai';
 
 
 const initialState = {
