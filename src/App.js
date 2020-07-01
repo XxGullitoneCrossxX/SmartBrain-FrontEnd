@@ -89,7 +89,7 @@ class App extends Component {
   onButtonSubmit = () => {
     console.log('Click');
     this.setState({imgUrl: this.state.input})
-    fetch('http://localhost:3000/imageURL', {
+    fetch('https://afternoon-stream-19916.herokuapp.com/imageURL', {
     method: 'put',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({
@@ -102,7 +102,7 @@ class App extends Component {
      })
     .catch(err => console.log)
 
-    fetch('http://localhost:3000/image', {
+    fetch('https://afternoon-stream-19916.herokuapp.com/image', {
     method: 'put',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({

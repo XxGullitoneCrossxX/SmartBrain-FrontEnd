@@ -19,9 +19,48 @@ class Register extends React.Component {
   	this.setState({passwordInput:event.target.value});
   }
 
+  registerFlagCheck = (name,email,password) => {
+  	if(!email || (email.match(new RegExp(/['@']/,'i')) === null 
+  		|| email.match(new RegExp(/['.']/,'i')) === null) ) 
+  	{
+  		
+  		return false;
+  	}
+  	else if(!name || name.match(new RegExp(/[^'A-Za-z0-9']/,'i')) != null || name.length < 3) 
+  	{
+  		
+  		return false;
+  	}
+  	else if(!password || password.match(new RegExp(/[^'A-Za-z0-9']/,'i')) === null || password.length < 8
+  		|| password.match(new RegExp(/['A-Za-z0-9']/,'i')) === null) 
+  	{
+  		console.log("Password Triggered")
+  		return false;
+  	}
+  	return true;		
+  }
+
   submitRegister = (onRouteChange,setUser) => {
   	const {nameInput,emailInput,passwordInput} = this.state
-  	fetch('http://localhost:3000/register', {
+
+  	if(!this.registerFlagCheck(nameInput,emailInput,passwordInput))
+  	{
+  		return window.alert(`Unable To Register User
+Please follow the following rules while registering: 
+1. Name field cannot contain special characters or numbers and must least have 3 characters.
+2. Email Address should be a vaild format & unique eg: example@gmail.com.
+3. Password Length should be atleast of 8 characters comprising
+of the following:
+- Atleast 1 Capital Letter (A-Z)
+- Atleast 1 Small Letter (a-z)
+- Atleast 1 Digit (0-9)
+- Atleast 1 Special Character \n
+Kindly Check the Same & Try Again.
+`);
+  	}
+
+  
+  	fetch('https://afternoon-stream-19916.herokuapp.com/register', {
 		method: 'post',
 		headers: {'Content-Type': 'application/json'},
 		body: JSON.stringify({

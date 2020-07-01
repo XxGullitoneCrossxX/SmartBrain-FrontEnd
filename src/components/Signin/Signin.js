@@ -15,7 +15,12 @@ changeEmail = (event) =>{
 }
 
 submitSignin = (onRouteChange,setUser) => {
-	fetch('http://localhost:3000/signin', {
+	const email = this.state.emailInput;
+	const password = this.state.passwordInput;
+	if(!email || !password){
+		return window.alert('Email Address or Password Field Is Empty');
+	}
+	fetch('https://afternoon-stream-19916.herokuapp.com/signin', {
 		method: 'post',
 		headers: {'Content-Type': 'application/json'},
 		body: JSON.stringify({
@@ -28,7 +33,13 @@ submitSignin = (onRouteChange,setUser) => {
 				setUser(data);
 				onRouteChange('home');
 			}
+			else{
+				return window.alert("Invalid Email Address or Password");
+			}
 		})
+	.catch( err => {
+		console.log("Unable to Sigin, Not able to make connection with API Server");
+	})
 }
 
 changePassword = (event) => {
